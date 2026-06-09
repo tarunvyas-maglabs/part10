@@ -6,6 +6,7 @@ import { GET_USER } from '../graphql/queries';
 import Constants from 'expo-constants';
 import theme from './theme';
 import useAuthStorage from '../hooks/useAuthStorage';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,14 +37,16 @@ const AppBar = () => {
   const user = data?.me ?? null;
   const apolloClient = useApolloClient();
   const authStorage = useAuthStorage();
+  const navigate = useNavigate();
 
   const handleLogOut = async () => {
+    navigate('/');
     await authStorage.removeAccessToken();
     await apolloClient.resetStore();
   }
 
   return <View style={styles.container}>
-    <ScrollView horizontal style={styles.scrollView} >
+    <ScrollView horizontal style={styles.scrollView} showsHorizontalScrollIndicator={false}>
       <View style={ styles.buttonContainer }>
         <Link to='/' >
           <Text style={styles.text}>Repositories</Text>
@@ -62,6 +65,9 @@ const AppBar = () => {
         <>
           <Link to={'/createReview'}>
             <Text style={styles.text}>Create a review</Text>
+          </Link>
+          <Link to={'/myReviews'}>
+            <Text style={styles.text}>My reviews</Text>
           </Link>
           <Pressable onPress={handleLogOut}>
             <Text style={styles.text}>Sign Out</Text>

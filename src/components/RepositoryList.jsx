@@ -43,7 +43,7 @@ const RepositoryList = () => {
   const [orderDirection, setOrderDirection] = useState('DESC')
   const [selectedOrder, setSelectedOrder] = useState('latest')
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [value] = useDebounce(searchKeyword, 1000)
+  const [value] = useDebounce(searchKeyword, 500)
   const { repositories } = useRepositories({ orderBy, orderDirection, searchKeyword: value });
   const navigate = useNavigate();
 

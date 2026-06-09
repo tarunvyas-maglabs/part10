@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
   return(
     <View style={styles.container}>
       <View style={styles.flexContainer}>
