@@ -1,4 +1,4 @@
-import {ActionSheetIOS, Button, Pressable, StyleSheet, Text} from 'react-native';
+import {ActionSheetIOS, Pressable, StyleSheet, Text} from 'react-native';
 import theme from './theme';
 
 const styles = StyleSheet.create({

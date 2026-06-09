@@ -1,6 +1,7 @@
 import { View, Text, FlatList } from 'react-native';
-import { useQuery } from "@apollo/client/react";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { ReviewItem } from "./SingleRepository";
+import { DELETE_REVIEW } from '../graphql/mutations';
 import { GET_USER } from "../graphql/queries";
 
 const ItemSeparator = () => <View style={{ height: 10 }}></View>
@@ -9,6 +10,14 @@ const MyReviews = () => {
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { includeReviews: true }
   });
+
+  const [deleteReview] = useMutation(DELETE_REVIEW, {
+    refetchQueries: [GET_USER]
+  })
+
+  const deleteHandler = async (id) => {
+    await deleteReview({ variables: { deleteReviewId: id } })
+  }
 
   if(loading) return <Text>loading...</Text>
   if(error) return <Text>error...</Text>
@@ -22,11 +31,11 @@ const MyReviews = () => {
   return(
     <FlatList
       data={reviewNodes}
-      renderItem={({ item }) => <ReviewItem review={item}/>}
+      renderItem={({ item }) => <ReviewItem review={item} displayButtons={true} deleteReview={deleteHandler}/>}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={item => item.id}
     />
-  )
+  );
 
 }
 export default MyReviews;

@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, Image, Pressable, Button } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import RepositoryItemHeader from './RepositoryItemHeader';
 import RepositoryItemBody from './RepositoryItemBody';
 import theme from './theme';
-import { useNavigate } from "react-router";
 import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
 })
 
 const RepositoryItem = ({ item, displayButton }) => {
-  const navigate = useNavigate();
 
   return(
     <View style={styles.container} testID="repositoryItem">

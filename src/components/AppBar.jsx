@@ -1,12 +1,10 @@
-import { Link } from 'react-router-native';
-import { Pressable } from 'react-native';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { Link , useNavigate } from 'react-router-native';
+import { Pressable , View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useApolloClient, useQuery } from '@apollo/client/react';
 import { GET_USER } from '../graphql/queries';
 import Constants from 'expo-constants';
 import theme from './theme';
 import useAuthStorage from '../hooks/useAuthStorage';
-import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   container: {
