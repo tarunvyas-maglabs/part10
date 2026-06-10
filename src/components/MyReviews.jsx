@@ -12,7 +12,7 @@ const MyReviews = () => {
   });
 
   const [deleteReview] = useMutation(DELETE_REVIEW, {
-    refetchQueries: [GET_USER]
+    refetchQueries: [{ query: GET_USER, variables: { includeReviews: true } }]
   })
 
   const deleteHandler = async (id) => {
@@ -28,6 +28,7 @@ const MyReviews = () => {
     reviews.map(review => review.node)
     : [];
 
+    console.log(reviewNodes);
   return(
     <FlatList
       data={reviewNodes}

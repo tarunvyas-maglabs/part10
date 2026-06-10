@@ -20,10 +20,22 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "privacy": "unlisted"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6afc616f-7194-43bc-8319-801fbdb103d7"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/6afc616f-7194-43bc-8319-801fbdb103d7"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

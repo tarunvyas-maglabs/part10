@@ -5,6 +5,7 @@ import theme from './theme';
 import { useMutation } from '@apollo/client/react';
 import { CREATE_REVIEW } from '../graphql/mutations';
 import { useNavigate } from "react-router";
+import { GET_USER } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   input: {
@@ -44,7 +45,9 @@ const initialValues = {
 
 const CreateReview = () => {
 
-  const [createReview] = useMutation(CREATE_REVIEW);
+  const [createReview] = useMutation(CREATE_REVIEW, {
+    refetchQueries: [{ query: GET_USER, variables: { includeReviews: true } }]
+  });
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
