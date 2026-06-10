@@ -132,12 +132,28 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { loading, error, data } = useQuery(GET_REPOSITORY, {
+  const { loading, error, data, fetchMore, variables } = useQuery(GET_REPOSITORY, {
     fetchPolicy: 'cache-and-network',
-    variables: { id }
+    variables: { id, first: 4, after: "" }
   });
-  if (loading) return <Text>Loading...</Text>;
+
+  if (loading && !data) return <Text>Loading...</Text>;
   if (error) return <Text>`Error! ${error.message}`</Text>;
+
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
+
+    if(!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        ...variables,
+        after: data.repository.reviews.pageInfo.endCursor
+      }
+    })
+  }
   
   const repository = data?.repository;
   const reviews = repository.reviews;
@@ -150,8 +166,10 @@ const SingleRepository = () => {
       data={reviewNodes}
       renderItem={({ item }) => <ReviewItem review={item} displayButtons={false}/>}
       keyExtractor={item => item.id}
-      ListHeaderComponent={() => <View style={{ marginBottom: 10 }}><RepositoryItem item={repository} displayButton={true}/></View>}
+      ListHeaderComponent={<View style={{ marginBottom: 10 }}><RepositoryItem item={repository} displayButton={true}/></View>}
       ItemSeparatorComponent={ItemSeparator}
+      onEndReached={handleFetchMore}
+      onEndReachedThreshold={0.01}
     />
   )
 }
